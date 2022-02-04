@@ -6,13 +6,13 @@ with open("README.md", 'r') as readme:
 
 setup(
     name='actor-loader',
-    version='0.5.17',
+    version='0.0.1',
     authour='Arch Leaders',
     authour_email='archleadership28@gmail.com',
     description='Console application to load the required C-Actors into any mod.',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/ArchLeaders/BotwScripts/tree/master/Modding%20Scripts/PyActorLoader',
+    url='https://github.com/ArchLeaders/ActorLoader',
     include_package_data=True,
     packages=setuptools.find_packages(),
     entry_points={
