@@ -2,6 +2,7 @@ import json
 import os
 import shutil as file
 import time
+import traceback
 import requests
 import zipfile
 
@@ -32,7 +33,9 @@ class BasicIO:
         try:
             if Path(file).is_file():
                 data = file.read_bytes()
-        except: data = file
+        except:
+            data = bytes(file)
+
 
         is_yaz0 = False
 
@@ -71,7 +74,8 @@ class BasicIO:
                 'content': Sarc(data).get_files(),
                 'endian': Sarc(data).get_endianness(),
                 'yaz0': is_yaz0,
-                'type': 'SARC'
+                'type': 'SARC',
+                'sub_type': 'PACK'
             }
 
         else:
@@ -230,7 +234,7 @@ class ActorLoader:
                 if str(SARCfile).endswith('.mubin') or str(SARCfile).endswith('.smubin'):
                     data = BasicIO.handle_dynamic(SARCfile.data)
 
-                    if data['type'] == 'MUBIN' and data['sub_type'] == 'MUBIN':
+                    if data['type'] == 'BYML' and data['sub_type'] == 'MUBIN':
                         print(f'[HERE] {data} {file} {SARCfile}')
                         for obj in data['content']['Objs']:
                             if 'UnitConfigName' in obj:
@@ -258,7 +262,7 @@ def main():
 
     start_time = time.time()
 
-    if not Path('.\\aoc').is_dir() and Path('.\\content').is_dir():
+    if not Path('.\\aoc').is_dir() and not Path('.\\content').is_dir():
         print('No aoc or content folder was found.')
         return
 
@@ -275,8 +279,8 @@ def main():
             if file.suffix in formats:
                 try:
                     local_actorinfo = ActorLoader.load_actors(file)
-                except Exception as e:
-                    print(f'Error - {str(e.with_traceback())}')
+                except ValueError and Exception as e:
+                    print(f'Error - {str(e)}\n{traceback.format_exc()}')
 
     BasicIO.write_actorinfo(local_actorinfo)
 
