@@ -11,9 +11,7 @@ from oead import byml, Sarc, yaz0, U32, S32
 from pathlib import Path
 from zlib import crc32
 
-ignore = json.loads(
-    Path(f"{os.environ['LOCALAPPDATA']}\\actor-loader\\ignore.json").read_text()
-)
+ignore: list = []
 """List of actors to be ignored/skipped when 'fixing' the active mubin file."""
 
 global_endian = True
