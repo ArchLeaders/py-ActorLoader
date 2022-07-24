@@ -6,7 +6,7 @@ with open("README.md", "r") as readme:
 
 setup(
     name="actor-loader",
-    version="0.1.2",
+    version="0.1.3",
     authour="Arch Leaders",
     authour_email="archleadership28@gmail.com",
     description="Console application to load the required C-Actors into any mod.",
